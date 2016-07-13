@@ -1,0 +1,10 @@
+{
+  "intents": [
+    {
+      "intent": "CharacterHouseIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    }
+  ]
+}

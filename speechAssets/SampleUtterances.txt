@@ -1,0 +1,3 @@
+CharacterHouseIntent hello
+CharacterHouseIntent hi
+CharacterHouseIntent hello world
