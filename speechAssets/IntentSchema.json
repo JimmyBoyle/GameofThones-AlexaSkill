@@ -1,10 +1,11 @@
 {
-  "intents": [
-    {
-      "intent": "CharacterHouseIntent"
-    },
-    {
-      "intent": "AMAZON.HelpIntent"
-    }
-  ]
+    "intents": [{
+        "intent": "CharacterHouseIntent",
+        "slots": [{
+            "name": "CharacterName",
+            "type": "LIST_OF_CHARACTERS"
+        }]
+    }, {
+        "intent": "AMAZON.HelpIntent"
+    }]
 }

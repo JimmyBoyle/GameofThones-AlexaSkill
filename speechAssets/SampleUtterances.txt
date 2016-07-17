@@ -1,3 +1,4 @@
-CharacterHouseIntent hello
-CharacterHouseIntent hi
-CharacterHouseIntent hello world
+CharacterHouseIntent what house is {CharacterName} from
+CharacterHouseIntent what house is {CharacterName} in
+CharacterHouseIntent {CharacterName} from which house
+CharacterHouseIntent {CharacterName} from what house
