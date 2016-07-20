@@ -10,7 +10,7 @@ var characterHouse = function(intent, session, response) {
             charName = helper.toTitleCase(String(charName.value));
             getCharacterHouse(charName);
         } else {
-            response.ask("I'm sorry i didnt understand that name please repeat your phrase", "Repeat");
+            response.ask("I'm sorry i didnt understand that name please repeat your phrase", "Please repeat your phrase");
         }
     }
 
@@ -20,12 +20,16 @@ var characterHouse = function(intent, session, response) {
             i = 1;
         }
         getThronesData.getCharacterByName(charName, function nameCallback(nameResponse) {
-            var houses = nameResponse[i].allegiances;
-            if (houses.length == 0) {
-                response.tell("I'm sorry, I couldn't find any house for " + charName + ". There are just so many in 'A Song of Ice and Fire'.");
+            if (nameResponse.length === 0) {
+                helper.apiError(response);
             } else {
-                var houseId = houses[i].substring(44);
-                getHouseName(houseId, charName);
+                var houses = nameResponse[i].allegiances;
+                if (houses.length == 0) {
+                    response.tell("I'm sorry, I couldn't find any house for " + charName + ". There are just so many in 'A Song of Ice and Fire'.");
+                } else {
+                    var houseId = houses[i].substring(44);
+                    getHouseName(houseId, charName);
+                }
             }
         });
     }
