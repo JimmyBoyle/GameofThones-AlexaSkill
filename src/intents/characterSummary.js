@@ -40,7 +40,7 @@ var characterSummary = function(intent, session, response) {
                 getCharacterName(father, function(fatherName) {
                     getCharacterName(mother, function(motherName) {
                         getCharacterName(spouse, function(spouseName) {
-                            formatCharacterInfo(charName, culture, born, died, aliases, titles, father, spouse, houseName, fatherName, motherName, spouseName, gender);
+                            formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, gender, response);
                         });
                     });
                 });
@@ -68,33 +68,79 @@ var characterSummary = function(intent, session, response) {
         }
     }
 
-    function formatCharacterInfo(charName, culture, born, died, aliases, titles, father, spouse, houseName, fatherName, motherName, spouseName) {
+    function formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, response) {
         var speechText = "",
             cardTitle,
             cardContent,
-            gender = "She",
+            heShe = "She",
+            hisHer = "Her",
             isWas = "was";
 
-        if (gender === "Male") gender = "Se";
+        if (gender === "Male") {
+            heShe = "He";
+            hisHer = "His";
+        }
         if (died !== "") isWas = "is";
         if (charName !== "") cardTitle = charName;
         if (culture !== "") {
             cardContent += "Culture: " + culture + "\n";
-            speechText += charName + isWas + culture + ".";
+            speechText += charName + isWas + culture + ". ";
+        }
+        if (houseName !== "") {
+            cardContent += "House: " + houseName + "\n";
+            speechText += heShe + " " + isWas + " from " + houseName;
         }
         if (born !== "") {
             cardContent += "Born: " + born + "\n";
-            speechText += gender + " was born " + born;
+            speechText += heShe + " was born " + born + ". ";
         }
         if (died !== "") {
             cardContent += "Died: " + died + "\n";
-            speechText += gender + " died " + died;
+            speechText += heShe + " died " + died + ". ";
         }
-        if (father !== "" && mother !== "") {
-            cardContent += "Father: " + father + "\n";
-            cardContent += "Mother: " + mother + "\n";
-            speechText += gender
+        if (fatherName !== "" && motherName !== "") {
+            cardContent += "Father: " + fatherName + "\n";
+            cardContent += "Mother: " + motherName + "\n";
+            speechText += hisHer + "father and mother are " + fatherName + " and " + motherName + ". ";
+        } else if (fatherName !== "") {
+            cardContent += "Father: " + fatherName + "\n";
+            speechText += hisHer + "father " + isWas + fatherName + ". ";
+        } else if (motherName !== "") {
+            cardContent += "Mother: " + motherName + "\n";
+            speechText += hisHer + "mother " + isWas + motherName + ". ";
         }
+        if (spouseName !== "") {
+            cardContent += "Spouse: " + spouseName + "\n";
+            speechText += heShe + " " + isWas + " married to " + spouseName + ". ";
+        }
+        if (aliases.length >= 0) {
+            cardContent += "Aliases: ";
+            speechText += "They were also called ";
+            for (var i = 0; i < aliases.length; i++) {
+                var alisas = aliases[i];
+                cardContent += alisas + ", ";
+                speechText += alisas + " and ";
+            }
+            cardContent = cardContent.substring(0, cardContent.length - 2) + "\n";
+            speechText = speechText.substring(0, speechText.length - 5) + ". ";
+        }
+        if (titles.length >= 0) {
+            cardContent += "Titles: ";
+            speechText += "They were the ";
+            for (var j = 0; j < titles.length; j++) {
+                var title = titles[j];
+                cardContent += title + ", ";
+                speechText += title + " and ";
+            }
+            cardContent = cardContent.substring(0, cardContent.length - 2) + "\n";
+            speechText = speechText.substring(0, speechText.length - 5) + ". ";
+        }
+        var speechOutput = {
+            speech: "<speak>" + speechText + "</speak>",
+            type: AlexaSkill.speechOutputType.SSML
+        };
+
+        response.tellWithCard(speechOutput, cardTitle, cardContent);
     }
 
 
