@@ -7,8 +7,8 @@ var registerEventHandlers = function(eventHandlers, speechOutputType) {
 
     eventHandlers.onLaunch = function(launchRequest, session, response) {
         console.log("GameOfThronesWiki onLaunch requestId: " + launchRequest.requestId + ", sessionId: " + session.sessionId);
-        var speechOutput = "Welcome to the Game of Thrones wiki, try saying a character's name";
-        var repromptText = "Say a characters name to get their house";
+        var speechOutput = "Welcome to the wiki for Game of Thrones characters, try asking what house a character is in";
+        var repromptText = "Ask what house a character is in";
         response.ask(speechOutput, repromptText);
     };
 

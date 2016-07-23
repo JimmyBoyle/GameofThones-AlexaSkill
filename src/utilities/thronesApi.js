@@ -3,18 +3,19 @@
  */
 
 var http = require('http');
+var helper = require('./helper');
 
 var getThronesData = {
 
     makeThroneApiRequest: function(url, thronesCallback) {
-        http.get(url, function(response) {
+        http.get(url, function(res) {
             var body = "";
 
-            response.on("data", function(chunk) {
+            res.on("data", function(chunk) {
                 body += chunk;
             });
 
-            response.on("end", function() {
+            res.on("end", function() {
                 thronesCallback(JSON.parse(body));
             });
         }).on("error", function(e) {
