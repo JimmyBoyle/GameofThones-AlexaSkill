@@ -20,7 +20,10 @@ var characterSummary = function(intent, session, response) {
             i = 1;
         }
         getThronesData.getCharacterByName(charName, function nameCallback(nameResponse) {
-            //TODO - check for empty return
+            if (nameResponse.length === 0) {
+                helper.apiError(response);
+                return;
+            }
             var culture = nameResponse[i].culture,
                 born = nameResponse[i].born,
                 died = nameResponse[i].died,
@@ -78,16 +81,20 @@ var characterSummary = function(intent, session, response) {
     function formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, gender, response) {
         var speechText = "",
             cardTitle,
-            cardContent,
+            cardContent ="",
             heShe = "She",
             hisHer = "Her",
+            areWere = "were",
             isWas = "was";
 
         if (gender === "Male") {
             heShe = "He";
             hisHer = "His";
         }
-        if (died !== "") isWas = "is";
+        if (died !== "") {
+            isWas = "is";
+            areWere = "are";
+        }
         if (charName !== "") cardTitle = charName;
         if (culture !== "") {
             cardContent += "Culture: " + culture + "\n";
@@ -122,7 +129,7 @@ var characterSummary = function(intent, session, response) {
         }
         if (aliases.length >= 0) {
             cardContent += "Aliases: ";
-            speechText += heShe + " " + is Was + " also called ";
+            speechText += heShe + " " + isWas + " also called ";
             for (var i = 0; i < aliases.length; i++) {
                 var alisas = aliases[i];
                 cardContent += alisas + ", ";
@@ -133,7 +140,7 @@ var characterSummary = function(intent, session, response) {
         }
         if (titles.length >= 0) {
             cardContent += "Titles: ";
-            speechText += "They were the ";
+            speechText += hisHer + " titles " + areWere + " ";
             for (var j = 0; j < titles.length; j++) {
                 var title = titles[j];
                 cardContent += title + ", ";
