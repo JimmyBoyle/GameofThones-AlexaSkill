@@ -8,7 +8,7 @@ var characterSummary = function(intent, session, response) {
         var charName = intent.slots.CharacterName;
         if (charName && charName.value) {
             charName = helper.toTitleCase(String(charName.value));
-            getCharacterHouse(charName);
+            getCharacterInfo(charName);
         } else {
             response.ask("I'm sorry i didnt understand that name please repeat your phrase", "Repeat");
         }
@@ -27,6 +27,7 @@ var characterSummary = function(intent, session, response) {
                 aliases = nameResponse[i].aliases,
                 titles = nameResponse[i].titles,
                 father = nameResponse[i].father,
+                mother = nameResponse[i].mother,
                 spouse = nameResponse[i].spouse,
                 houses = nameResponse[i].allegiances,
                 gender = nameResponse[i].gender;
@@ -36,10 +37,15 @@ var characterSummary = function(intent, session, response) {
             } else {
                 houses = houses[i].substring(44);
             }
+            console.log("HOUSE NAME: " + houses);
             getHouseName(houses, function(houseName) {
+                console.log("HERE1");
                 getCharacterName(father, function(fatherName) {
+                    console.log("HERE2");
                     getCharacterName(mother, function(motherName) {
+                        console.log("HERE3");
                         getCharacterName(spouse, function(spouseName) {
+                            console.log("HERE4");
                             formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, gender, response);
                         });
                     });
@@ -49,26 +55,27 @@ var characterSummary = function(intent, session, response) {
         });
     }
 
-    function getHouseName(house, callback) {
-        if (house === null) {
-            callback(null);
+    function getHouseName(houseID, callback) {
+        if (houseID === null) {
+            callback("");
         } else {
             getThronesData.getHouseById(houseID, function houseCallback(houseResponse) {
                 var houseName = houseResponse.name;
+                callback(houseName);
             });
         }
     }
 
     function getCharacterName(charId, callback) {
-        if (charName === "") {
-            callback(null);
+        if (charId === "") {
+            callback("");
         } else {
             //TODO check this number for accuracy
             callback(getThronesData.getCharacterById(charId.substring(48)));
         }
     }
 
-    function formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, response) {
+    function formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, gender, response) {
         var speechText = "",
             cardTitle,
             cardContent,
@@ -84,11 +91,11 @@ var characterSummary = function(intent, session, response) {
         if (charName !== "") cardTitle = charName;
         if (culture !== "") {
             cardContent += "Culture: " + culture + "\n";
-            speechText += charName + isWas + culture + ". ";
+            speechText += charName + " " + isWas + " a " + culture + ". ";
         }
         if (houseName !== "") {
             cardContent += "House: " + houseName + "\n";
-            speechText += heShe + " " + isWas + " from " + houseName;
+            speechText += heShe + " " + isWas + " from " + houseName + ". ";
         }
         if (born !== "") {
             cardContent += "Born: " + born + "\n";
@@ -101,13 +108,13 @@ var characterSummary = function(intent, session, response) {
         if (fatherName !== "" && motherName !== "") {
             cardContent += "Father: " + fatherName + "\n";
             cardContent += "Mother: " + motherName + "\n";
-            speechText += hisHer + "father and mother are " + fatherName + " and " + motherName + ". ";
+            speechText += hisHer + " father and mother are " + fatherName + " and " + motherName + ". ";
         } else if (fatherName !== "") {
             cardContent += "Father: " + fatherName + "\n";
-            speechText += hisHer + "father " + isWas + fatherName + ". ";
+            speechText += hisHer + " father " + isWas + fatherName + ". ";
         } else if (motherName !== "") {
             cardContent += "Mother: " + motherName + "\n";
-            speechText += hisHer + "mother " + isWas + motherName + ". ";
+            speechText += hisHer + " mother " + isWas + motherName + ". ";
         }
         if (spouseName !== "") {
             cardContent += "Spouse: " + spouseName + "\n";
@@ -115,7 +122,7 @@ var characterSummary = function(intent, session, response) {
         }
         if (aliases.length >= 0) {
             cardContent += "Aliases: ";
-            speechText += "They were also called ";
+            speechText += heShe + " " + is Was + " also called ";
             for (var i = 0; i < aliases.length; i++) {
                 var alisas = aliases[i];
                 cardContent += alisas + ", ";

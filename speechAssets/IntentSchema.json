@@ -10,6 +10,15 @@
             ]
         },
         {
+            "intent": "CharacterSummaryIntent",
+            "slots": [
+                {
+                    "name": "CharacterName",
+                    "type": "LIST_OF_CHARACTERS"
+                }
+            ]
+        },
+        {
             "intent": "AMAZON.HelpIntent"
         },
         {

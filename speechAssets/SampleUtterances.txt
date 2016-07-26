@@ -2,3 +2,7 @@ CharacterHouseIntent what house is {CharacterName} from
 CharacterHouseIntent what house is {CharacterName} in
 CharacterHouseIntent {CharacterName} from which house
 CharacterHouseIntent {CharacterName} from what house
+
+CharacterSummaryIntent who is {CharacterName}
+CharacterSummaryIntent tell me about {CharacterName}
+CharacterSummaryIntent give me details on {CharacterName}
