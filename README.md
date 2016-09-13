@@ -1,5 +1,6 @@
 # Game of Thrones Alexa Skill
 > This is an ongoing skill that aims to give out information about the world of ice and fire. 
+
 > Season 6 information is still being updated within the API (without books to parse it takes a lot longer) so some requests may give different information from the show
 
 ## Usage Example
