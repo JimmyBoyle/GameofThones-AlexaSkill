@@ -8,3 +8,9 @@ CharacterSummaryIntent tell me about {CharacterName}
 CharacterSummaryIntent give me details on {CharacterName}
 CharacterSummaryIntent summary on {CharacterName}
 CharacterSummaryIntent details about {CharacterName}
+
+CharacterIsAliveIntent is {CharacterName} alive
+CharacterIsAliveIntent is {CharacterName} dead
+CharacterIsAliveIntent is {CharacterName} living
+CharacterIsAliveIntent when did {CharacterName} die
+CharacterIsAliveIntent how did {CharacterName} die
