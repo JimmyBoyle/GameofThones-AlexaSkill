@@ -1,5 +1,6 @@
 var characterHouse = require("./intents/characterHouse");
 var characterSummary = require("./intents/characterSummary");
+var characterIsAlive = require("./intents/characterIsAlive");
 
 var registerIntentHandlers = function(intentHandlers) {
 
@@ -9,6 +10,10 @@ var registerIntentHandlers = function(intentHandlers) {
 
     intentHandlers.CharacterSummaryIntent = function(intent, session, response) {
         characterSummary.register(intent, session, response);
+    };
+
+    intentHandlers.CharacterIsAliveIntent = function(intent, session, response) {
+        characterIsAlive.register(intent, session, response);
     };
 
     intentHandlers["AMAZON.HelpIntent"] = function(intent, session, response) {
