@@ -14,3 +14,8 @@ CharacterIsAliveIntent is {CharacterName} dead
 CharacterIsAliveIntent is {CharacterName} living
 CharacterIsAliveIntent when did {CharacterName} die
 CharacterIsAliveIntent how did {CharacterName} die
+
+HouseSummaryIntent tell me about house {HouseName}
+HouseSummaryIntent give me details on house {HouseName}
+HouseSummaryIntent summary on house {HouseName}
+HouseSummaryIntent details on house {HouseName}
