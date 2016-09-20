@@ -28,6 +28,15 @@
             ]
         },
         {
+            "intent": "HouseSummaryIntent",
+            "slots": [
+                {
+                    "name": "HouseName",
+                    "type": "LIST_OF_HOUSES"
+                }
+            ]
+        },
+        {
             "intent": "AMAZON.HelpIntent"
         },
         {
