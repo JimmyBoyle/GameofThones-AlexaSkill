@@ -4,7 +4,7 @@
 
 > Season 6 information is still being updated within the API (without books to parse it takes a lot longer) so some requests may give different information from the show
 
->https://www.amazon.com/Wiki-for-Game-of-Thrones/dp/B01ILSYD0U/ref=sr_1_2?ie=UTF8&qid=1478500502&sr=8-2&keywords=game+of+thrones+alexa
+>Link to skill on Amazon: https://goo.gl/10JueP
 
 ## Usage Example
 1.	To run the code simply zip the src folder and then upload to Amazon Web Services Lambda function. You will need to replace `APP_ID` with your own unique id given from AWS
