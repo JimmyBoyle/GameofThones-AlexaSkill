@@ -16,7 +16,7 @@ var characterSummary = function(intent, session, response) {
 
     function getCharacterInfo(charName) {
         var i = 0;
-        if (charName === "Daenerys Targaryen") {
+        if (charName.toUpperCase() === "DAENERYS TARGARYEN" ) {
             i = 1;
         }
         getThronesData.getCharacterByName(charName, function nameCallback(nameResponse) {
@@ -38,17 +38,13 @@ var characterSummary = function(intent, session, response) {
             if (houses.length === 0) {
                 houses = null;
             } else {
-                houses = houses[i].substring(44);
+                houses = houses[0].substring(44);
             }
             console.log("HOUSE NAME: " + houses);
             getHouseName(houses, function(houseName) {
-                console.log("HERE1");
                 getCharacterName(father, function(fatherName) {
-                    console.log("HERE2");
                     getCharacterName(mother, function(motherName) {
-                        console.log("HERE3");
                         getCharacterName(spouse, function(spouseName) {
-                            console.log("HERE4");
                             formatCharacterInfo(charName, culture, born, died, aliases, titles, houseName, fatherName, motherName, spouseName, gender, response);
                         });
                     });
