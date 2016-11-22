@@ -1,6 +1,7 @@
 var characterHouse = require("./intents/characterHouse");
 var characterSummary = require("./intents/characterSummary");
 var characterIsAlive = require("./intents/characterIsAlive");
+var houseSummary = require("./intents/houseSummary");
 
 var registerIntentHandlers = function(intentHandlers) {
 
@@ -16,8 +17,12 @@ var registerIntentHandlers = function(intentHandlers) {
         characterIsAlive.register(intent, session, response);
     };
 
+    intentHandlers.HouseSummaryIntent = function(intent, session, response) {
+        houseSummary.register(intent, session, response);
+    };
+
     intentHandlers["AMAZON.HelpIntent"] = function(intent, session, response) {
-        var speechOutput = "Try asking what house a character is from, for example you can say, What house is Jon Snow in?";
+        var speechOutput = "You can ask for character summaries, house summaries, if characters are alive, try asking what house Jon Snow is in";
         response.ask(speechOutput,speechOutput);
     };
 
