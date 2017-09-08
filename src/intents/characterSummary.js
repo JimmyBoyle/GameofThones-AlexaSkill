@@ -87,7 +87,7 @@ var characterSummary = function(intent, session, response) {
             heShe = "He";
             hisHer = "His";
         }
-        if (died !== "") {
+        if (died == "") {
             isWas = "is";
             areWere = "are";
         }
